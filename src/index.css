@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --family: "DM Sans", sans-serif;
+  --fs-sm: 12px;
+}
+
+.page {
+  height: 100%;
+}
+
+.page-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  background-color: hsl(243, 96%, 9%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: var(--fs-sm);
+  font-family: var(--family);
+  color: #fff;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
