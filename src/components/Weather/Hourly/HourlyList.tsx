@@ -7,6 +7,9 @@ export default function HourlyList({ currentDate }: Props) {
   const { data } = useWeather();
   if (!data) return null;
 
+  const todayDate = data.current.time.split("T")[0];
+  const isTodaySelected = currentDate === todayDate;
+
   const allHours = data.hourly.time.map((timeString, index) => {
     return {
       time: timeString,
@@ -15,11 +18,23 @@ export default function HourlyList({ currentDate }: Props) {
     };
   });
 
-  const currentHourly = allHours
-    .filter((item) => item.time.split("T")[0] === currentDate)
-    .splice(0, 10);
+  const currentHourly = allHours.filter((item) => {
+    const itemDate = item.time.split("T")[0];
 
-  const hourFormatter = new Intl.DateTimeFormat("en-US", { hour: "numeric" });
+    if (itemDate !== currentDate) return false;
+
+    if (isTodaySelected) {
+      return item.time >= data.current.time;
+    }
+
+    return true;
+  });
+
+  const hourFormatter = new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    hour12: false,
+    hourCycle: "h23",
+  });
 
   return (
     <ul className="flex flex-col w-full gap-2">
@@ -30,7 +45,7 @@ export default function HourlyList({ currentDate }: Props) {
 
         return (
           <li
-            className="flex items-center justify-between gap-2"
+            className="flex items-center justify-between gap-2 px-2 rounded-md bg-neutral700"
             key={item.time}
           >
             <div className="flex items-center gap-3">
@@ -41,7 +56,7 @@ export default function HourlyList({ currentDate }: Props) {
               />
               <p className="text-lg text-neutral400">{formattedHour}</p>
             </div>
-            <p className="text-lg text-neutral400">{temp}</p>
+            <p className="text-lg text-neutral400">{temp}°</p>
           </li>
         );
       })}

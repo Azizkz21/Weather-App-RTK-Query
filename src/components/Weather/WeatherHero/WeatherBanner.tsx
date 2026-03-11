@@ -18,21 +18,21 @@ export default function WeatherBanner() {
     date && !isNaN(date.getTime()) ? formatter.format(date) : "Loading...";
 
   return (
-    <div className="relative flex h-72 flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl px-4 lg:flex-row lg:justify-between">
+    <div className="relative flex flex-col items-center justify-center gap-4 px-4 overflow-hidden h-72 rounded-3xl lg:flex-row lg:justify-between">
       <div className="relative z-10 flex flex-col items-center gap-2 lg:items-start">
-        <p className="text-center text-2xl text-neutral100 lg:text-left">
+        <p className="text-2xl text-center text-neutral100 lg:text-left">
           {city?.name},{city?.country}
         </p>
-        <p className="text-center text-base text-neutral300 lg:text-left">
+        <p className="text-base text-center text-neutral300 lg:text-left">
           {formattedDate}
         </p>
       </div>
-      <div className="relative z-10 mx-auto flex items-center justify-center gap-4 lg:mx-0 lg:ml-auto lg:items-start">
+      <div className="relative z-10 flex items-center justify-center gap-4 mx-auto lg:mx-0 lg:ml-auto lg:items-start">
         {iconPath && (
-          <img src={iconPath} alt="Weather Icon" className="h-20 w-20" />
+          <img src={iconPath} alt="Weather Icon" className="w-20 h-20" />
         )}
-        <p className="text-center text-6xl text-neutral100 lg:text-left">
-          {data?.current.temperature_2m}
+        <p className="text-6xl text-center text-neutral100 lg:text-left">
+          {data?.current.temperature_2m}°
         </p>
       </div>
 
@@ -42,7 +42,7 @@ export default function WeatherBanner() {
           srcSet="./images/bg-today-large.svg"
         />
         <img
-          className="absolute left-0 top-0 h-full w-full object-cover"
+          className="absolute top-0 left-0 object-cover w-full h-full"
           src="./images/bg-today-small.svg"
           loading="lazy"
           width={345}
